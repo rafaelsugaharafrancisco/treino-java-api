@@ -1,7 +1,5 @@
 package br.com.alura.rodizi_de_veiculos.dto;
 
-import br.com.alura.rodizi_de_veiculos.models.Montadora;
-
 public class VeiculoRes {
 
 	private String marca;
@@ -12,8 +10,8 @@ public class VeiculoRes {
 	
 	private int ano;
 	
-	public VeiculoRes(Montadora marca, String modelo, String placa, int ano) {
-		this.marca = marca.getNome();
+	public VeiculoRes(String marca, String modelo, String placa, int ano) {
+		this.marca = marca;
 		this.modelo = modelo;
 		this.placa = placa;
 		this.ano = ano;

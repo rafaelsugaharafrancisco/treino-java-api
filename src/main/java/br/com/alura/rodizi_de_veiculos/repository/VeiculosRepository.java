@@ -9,5 +9,7 @@ import br.com.alura.rodizi_de_veiculos.models.Veiculo;
 public interface VeiculosRepository extends JpaRepository<Veiculo, Integer> {
 	
 	public Optional<Veiculo> findByPlaca(String placa);
+	
+	public boolean existsByPlaca(String placa);
 
 }

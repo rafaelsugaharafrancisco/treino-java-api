@@ -1,33 +1,28 @@
 package br.com.alura.rodizi_de_veiculos.dto;
 
-import br.com.alura.rodizi_de_veiculos.models.Montadora;
 import br.com.alura.rodizi_de_veiculos.models.Veiculo;
 
 public class VeiculoReq {
 	
-	private int marcaId;
+	private String marca;
 	
 	private String modelo;
 	
 	private String placa;
 	
 	private int ano;
-
-	public int getMarcaId() {
-		return marcaId;
-	}
 	
 	public VeiculoReq() {}
 	
-	public VeiculoReq(Montadora marca, String modelo, String placa, int ano) {
-		this.marcaId = marca.getId();
+	public VeiculoReq(String marca, String modelo, String placa, int ano) {
+		this.marca = marca;
 		this.modelo = modelo;
 		this.placa = placa;
 		this.ano = ano;
 	}
 	
-	public void setMarcaId(int marcaId) {
-		this.marcaId = marcaId;
+	public void setMarca(String marca) {
+		this.marca = marca;
 	}
 
 	public String getModelo() {
@@ -59,7 +54,7 @@ public class VeiculoReq {
 		veiculo.setModelo(modelo);
 		veiculo.setAno(ano);
 		veiculo.setPlaca(placa);
-		veiculo.setMarca(new Montadora(marcaId));
+		veiculo.setMarca(marca);
 		
 		return veiculo;
 	}

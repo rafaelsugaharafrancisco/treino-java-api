@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import br.com.alura.rodizi_de_veiculos.exceptions.VeiculoNaoEncontradoException;
 import br.com.alura.rodizi_de_veiculos.models.Veiculo;
 import br.com.alura.rodizi_de_veiculos.repository.VeiculosRepository;
 
@@ -31,12 +32,19 @@ public class VeiculosService implements Service<Veiculo> {
 			throw new RuntimeException("Parâmetro object tem que ser tipo Veículo");
 		}
 		
+		if (repository.existsByPlaca(veiculo.getPlaca())){
+		}
+		
 		return Optional.of(repository.save(veiculo));
 	}
 
 	@Override
 	public Optional<Veiculo> pesquisar(String string) {
-		return repository.findByPlaca(string);
+		Optional<Veiculo> veiculo = repository.findByPlaca(string);
+		
+		if (veiculo.isPresent()) return veiculo;
+		
+		throw new VeiculoNaoEncontradoException();
 	}
 
 	@Override

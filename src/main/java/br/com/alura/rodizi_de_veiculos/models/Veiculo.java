@@ -4,7 +4,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 
 @Entity
 public class Veiculo {
@@ -18,9 +17,8 @@ public class Veiculo {
 	private int ano;
 	
 	private String placa;
-	
-	@ManyToOne
-	private Montadora marca;
+
+	private String marca;
 	
 	public int getId() {
 		return id;
@@ -54,11 +52,11 @@ public class Veiculo {
 		this.placa = placa;
 	}
 	
-	public Montadora getMarca() {
+	public String getMarca() {
 		return marca;
 	}
 	
-	public void setMarca(Montadora marca) {
+	public void setMarca(String marca) {
 		this.marca = marca;
 	}
 }
