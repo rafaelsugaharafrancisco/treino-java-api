@@ -1,10 +1,12 @@
 package br.com.alura.rodizi_de_veiculos.exceptions;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import br.com.alura.rodizi_de_veiculos.dto.ErroExceptionRes;
 import br.com.alura.rodizi_de_veiculos.dto.VeiculoJaCadastradoRes;
 import br.com.alura.rodizi_de_veiculos.dto.VeiculoNaoEncontradoRes;
 
@@ -21,5 +23,17 @@ public class ErroExceptionHandler {
 	@ExceptionHandler(VeiculoJaCadastradoException.class)
 	public VeiculoJaCadastradoRes veiculoJaCadastrado(VeiculoJaCadastradoException e) {
 		return new VeiculoJaCadastradoRes(e.getMessage());
+	}
+	
+	@ResponseStatus(code = HttpStatus.METHOD_NOT_ALLOWED)
+	@ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+	public ErroExceptionRes erroMetodoHttp(HttpRequestMethodNotSupportedException e) {
+		return new ErroExceptionRes(e.getMessage());
+	}
+	
+	@ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
+	@ExceptionHandler(Exception.class)
+	public ErroExceptionRes erroGenerico(Exception e) {
+		return new ErroExceptionRes(e.getMessage());
 	}
 }

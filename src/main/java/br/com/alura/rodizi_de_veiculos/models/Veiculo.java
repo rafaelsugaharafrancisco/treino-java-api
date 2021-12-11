@@ -1,5 +1,6 @@
 package br.com.alura.rodizi_de_veiculos.models;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,6 +17,7 @@ public class Veiculo {
 	
 	private int ano;
 	
+	@Column(unique = true)
 	private String placa;
 
 	private String marca;

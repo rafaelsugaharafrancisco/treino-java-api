@@ -42,7 +42,7 @@ public class VeiculosController {
 		return new VeiculoRes(veiculo.getMarca(), veiculo.getModelo(), veiculo.getPlaca(), veiculo.getAno());
 	}
 	
-	@GetMapping("{placa}/verifica-rodizio")
+	@GetMapping("{placa}/rodizio-hoje")
 	public DiaDeRodizioRes verificaDiaDeRodizio(@PathVariable String placa) {
 		return new DiaDeRodizioRes(service.verificaDiaDeRodizio(service.pesquisar(placa).get()));
 	}

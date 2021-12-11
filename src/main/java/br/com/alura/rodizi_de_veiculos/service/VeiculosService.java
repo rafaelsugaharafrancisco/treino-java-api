@@ -88,9 +88,9 @@ public class VeiculosService implements Service<Veiculo> {
 				break;
 		}
 		
-		if (diaDeRodizio) return "Sim. NÃO pode rodar";
+		if (diaDeRodizio) return "Sim";
 		
-		return "Não. Pode rodar";
+		return "Não";
 	}
 	
 }
