@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.alura.rodizi_de_veiculos.dto.DiaDeRodizioRes;
 import br.com.alura.rodizi_de_veiculos.dto.VeiculoReq;
 import br.com.alura.rodizi_de_veiculos.dto.VeiculoRes;
 import br.com.alura.rodizi_de_veiculos.models.Veiculo;
@@ -28,15 +29,22 @@ public class VeiculosController {
 
 	@PostMapping
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public VeiculoReq criar(@RequestBody VeiculoReq veiculoDto) {
+	public VeiculoRes criar(@RequestBody VeiculoReq veiculoDto) {
 		Veiculo veiculo = service.criar(veiculoDto.toVeiculo()).get();
-		return new VeiculoReq(veiculo.getMarca(), veiculo.getModelo(), veiculo.getPlaca(), veiculo.getAno());
+		
+		return new VeiculoRes(veiculo.getMarca(), veiculo.getModelo(), veiculo.getPlaca(), veiculo.getAno());
 	}
 	
 	@GetMapping("{placa}")
 	public VeiculoRes pesquisar(@PathVariable String placa) {
-		Veiculo veiculo = service.pesquisar(placa).get();	
+		Veiculo veiculo = service.pesquisar(placa).get();
+		
 		return new VeiculoRes(veiculo.getMarca(), veiculo.getModelo(), veiculo.getPlaca(), veiculo.getAno());
+	}
+	
+	@GetMapping("{placa}/verifica-rodizio")
+	public DiaDeRodizioRes verificaDiaDeRodizio(@PathVariable String placa) {
+		return new DiaDeRodizioRes(service.verificaDiaDeRodizio(service.pesquisar(placa).get()));
 	}
 //	@GetMapping
 //	public List<Veiculos> lista() {
