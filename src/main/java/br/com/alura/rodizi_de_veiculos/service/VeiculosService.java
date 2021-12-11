@@ -41,9 +41,9 @@ public class VeiculosService implements Service<Veiculo> {
 	}
 
 	@Override
-	public Optional<Veiculo> pesquisar(String string) {
+	public Optional<Veiculo> pesquisar(String placa) {
 		
-		Optional<Veiculo> veiculo = repository.findByPlaca(string);
+		Optional<Veiculo> veiculo = repository.findByPlaca(placa);
 		
 		if (veiculo.isPresent()) return veiculo;
 		
@@ -57,8 +57,14 @@ public class VeiculosService implements Service<Veiculo> {
 	}
 
 	@Override
-	public void remover(String string) {
-		// TODO Auto-generated method stub
+	public void remover(String placa) {
+		Optional<Veiculo> optVeiculo = repository.findByPlaca(placa);
+		
+		if (!optVeiculo.isPresent()) {
+			throw new VeiculoNaoEncontradoException();
+		}
+
+		repository.delete(repository.findByPlaca(placa).get());					
 	}
 
 	public String verificaDiaDeRodizio(Veiculo veiculo) {

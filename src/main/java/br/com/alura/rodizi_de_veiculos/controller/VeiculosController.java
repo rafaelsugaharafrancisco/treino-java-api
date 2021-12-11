@@ -2,6 +2,7 @@ package br.com.alura.rodizi_de_veiculos.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,11 +42,18 @@ public class VeiculosController {
 		
 		return new VeiculoRes(veiculo.getMarca(), veiculo.getModelo(), veiculo.getPlaca(), veiculo.getAno());
 	}
+
+	@DeleteMapping("{placa}")
+	@ResponseStatus(code = HttpStatus.NO_CONTENT)
+	public void remover(@PathVariable String placa) {
+		service.remover(placa);
+	}
 	
 	@GetMapping("{placa}/rodizio-hoje")
 	public DiaDeRodizioRes verificaDiaDeRodizio(@PathVariable String placa) {
 		return new DiaDeRodizioRes(service.verificaDiaDeRodizio(service.pesquisar(placa).get()));
 	}
+	
 //	@GetMapping
 //	public List<Veiculos> lista() {
 //		return repository.findAll();
