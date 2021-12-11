@@ -8,7 +8,7 @@ public interface Service<T> {
 	
 	public Optional<T> pesquisar(String string);
 	
-	public Optional<T> alterar(Object object);
+	public Optional<T> alterar(Object object, String string);
 	
 	public void remover(String string);
 }

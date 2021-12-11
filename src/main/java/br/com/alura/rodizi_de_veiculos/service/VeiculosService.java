@@ -28,7 +28,7 @@ public class VeiculosService implements Service<Veiculo> {
 	public Optional<Veiculo> criar(Object object) {
 		
 		if (!(object instanceof Veiculo)) {
-			throw new RuntimeException("Parâmetro object tem que ser tipo Veículo");
+			throw new RuntimeException("O parâmetro desse método tem que ser tipo Veículo");
 		}
 		
 		Veiculo veiculo = (Veiculo) object;
@@ -51,9 +51,27 @@ public class VeiculosService implements Service<Veiculo> {
 	}
 
 	@Override
-	public Optional<Veiculo> alterar(Object object) {
-		// TODO Auto-generated method stub
-		return null;
+	@Transactional
+	public Optional<Veiculo> alterar(Object object, String placa) {
+		
+		if (!(object instanceof Veiculo))
+			throw new RuntimeException("O parâmetro desse método tem que ser tipo Veículo");
+		
+		Veiculo veiculoAlterar = (Veiculo) object;
+		
+		Optional<Veiculo> optVeiculo = repository.findByPlaca(placa);
+		
+		if (!optVeiculo.isPresent()) {
+			throw new VeiculoNaoEncontradoException();
+		}
+		
+		Veiculo veiculo = optVeiculo.get();
+		veiculo.setMarca(veiculoAlterar.getMarca());
+		veiculo.setModelo(veiculoAlterar.getModelo());
+		veiculo.setPlaca(veiculoAlterar.getPlaca());
+		veiculo.setAno(veiculoAlterar.getAno());
+		
+		return Optional.of(veiculo);
 	}
 
 	@Override

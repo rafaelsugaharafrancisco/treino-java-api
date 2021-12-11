@@ -21,24 +21,32 @@ public class DiaDeRodizioRes {
 	}
 	
 	private String obtemDiaDaSemana() {
-		String diaDaSemana = LocalDateTime.now().getDayOfWeek().name();
+		String dayOfWeek = LocalDateTime.now().getDayOfWeek().name();
+		String diaDaSemana = "";
 		
-		switch(diaDaSemana) {
-			case "MONDAY": return "Segunda-feira";
+		switch(dayOfWeek) {
+			case "MONDAY": diaDaSemana = "Segunda-feira";
+			break;
 			
-			case "TUESDAY": return "Terça-feira";
-		
-			case "WEDNESDAY": return "Quarta-feira";
-				
-			case "THURSDAY": return "Quinta-feira";
-				
-			case "FRIDAY": return "Sexta-feira";
+			case "TUESDAY": diaDaSemana =  "Terça-feira";
+			break;
 			
-			case "SATURDAY": return "Sábado";
+			case "WEDNESDAY": diaDaSemana = "Quarta-feira";
+			break;
 			
-			case "SUNDAY": return "Domingo";
+			case "THURSDAY": diaDaSemana = "Quinta-feira";
+			break;
+			
+			case "FRIDAY": diaDaSemana = "Sexta-feira";
+			break;
+			
+			case "SATURDAY": diaDaSemana = "Sábado";
+			break;
+			
+			case "SUNDAY": diaDaSemana = "Domingo";
+			break;
 		}
 		
-		return "";
+		return diaDaSemana;
 	}
 }
