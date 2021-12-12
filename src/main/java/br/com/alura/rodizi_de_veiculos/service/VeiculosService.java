@@ -82,7 +82,7 @@ public class VeiculosService implements Service<Veiculo> {
 			throw new VeiculoNaoEncontradoException();
 		}
 
-		repository.delete(repository.findByPlaca(placa).get());					
+		repository.delete(optVeiculo.get());					
 	}
 
 	private DiaDaSemana obtemDiaDeRodizio(Veiculo veiculo) {
