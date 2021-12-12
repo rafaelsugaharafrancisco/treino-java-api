@@ -5,7 +5,7 @@ import javax.validation.constraints.Pattern;
 
 import br.com.alura.rodizi_de_veiculos.models.Veiculo;
 
-public class VeiculoReq {
+public class VeiculoAlteracao {
 	
 	@NotBlank(message = "Não pode ser nulo ou estar em branco")
 	private String marca;
@@ -14,20 +14,8 @@ public class VeiculoReq {
 	private String modelo;
 	
 	@NotBlank(message = "Não pode ser nulo ou estar em branco")
-	@Pattern(regexp = "[A-Z]{3}-[0-9][A-Z0-9][0-9]{2}", message = "Valor inválido. Formato ex.: XXX-9X99")
-	private String placa;
-	
-	@Pattern(regexp = "[0-9]{4}", message = "Valor inválido. Formato ex.:  9999")
+	@Pattern(regexp = "\\d{4}", message = "Valor inválido. Formato ex.:  9999")
 	private String ano;
-	
-	public VeiculoReq() {}
-	
-	public VeiculoReq(String marca, String modelo, String placa, String ano) {
-		this.marca = marca;
-		this.modelo = modelo;
-		this.placa = placa;
-		this.ano = ano;
-	}
 	
 	public String getMarca() {
 		return marca;
@@ -45,14 +33,6 @@ public class VeiculoReq {
 		this.modelo = modelo;
 	}
 
-	public String getPlaca() {
-		return placa;
-	}
-
-	public void setPlaca(String placa) {
-		this.placa = placa;
-	}
-
 	public String getAno() {
 		return ano;
 	}
@@ -65,7 +45,6 @@ public class VeiculoReq {
 		Veiculo veiculo = new Veiculo();
 		veiculo.setModelo(modelo);
 		veiculo.setAno(Integer.parseInt(ano));
-		veiculo.setPlaca(placa);
 		veiculo.setMarca(marca);
 		
 		return veiculo;

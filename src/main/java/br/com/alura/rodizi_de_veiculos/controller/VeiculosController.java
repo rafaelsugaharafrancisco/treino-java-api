@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.alura.rodizi_de_veiculos.dto.DiaDeRodizioRes;
-import br.com.alura.rodizi_de_veiculos.dto.VeiculoReq;
+import br.com.alura.rodizi_de_veiculos.dto.VeiculoAlteracao;
+import br.com.alura.rodizi_de_veiculos.dto.VeiculoInclusao;
 import br.com.alura.rodizi_de_veiculos.dto.VeiculoRes;
 import br.com.alura.rodizi_de_veiculos.models.Veiculo;
 import br.com.alura.rodizi_de_veiculos.service.VeiculosService;
@@ -33,35 +33,42 @@ public class VeiculosController {
 
 	@PostMapping
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public VeiculoRes criar(@RequestBody @Valid VeiculoReq veiculoDto) {
+	public VeiculoRes criar(@RequestBody @Valid VeiculoInclusao veiculoDto) {
 		Veiculo veiculo = service.criar(veiculoDto.toVeiculo()).get();
 		
-		return new VeiculoRes(veiculo.getMarca(), veiculo.getModelo(), veiculo.getPlaca(), veiculo.getAno());
+		return new VeiculoRes(veiculo.getMarca(), 
+				veiculo.getModelo(), 
+				veiculo.getPlaca(), 
+				veiculo.getAno(), 
+				veiculo.getDiaDeRodizio());
 	}
 	
 	@GetMapping("{placa}")
 	public VeiculoRes pesquisar(@PathVariable String placa) {
 		Veiculo veiculo = service.pesquisar(placa).get();
 		
-		return new VeiculoRes(veiculo.getMarca(), veiculo.getModelo(), veiculo.getPlaca(), veiculo.getAno());
+		return new VeiculoRes(veiculo.getMarca(), 
+				veiculo.getModelo(), 
+				veiculo.getPlaca(), 
+				veiculo.getAno(),
+				veiculo.getDiaDeRodizio());
 	}
 
 	@PutMapping("{placa}")
-	public VeiculoRes alterar(@RequestBody @Valid VeiculoReq veiculoDto, @PathVariable String placa) {
+	public VeiculoRes alterar(@RequestBody @Valid VeiculoAlteracao veiculoDto, @PathVariable String placa) {
 		Veiculo veiculo = service.alterar(veiculoDto.toVeiculo(), placa).get();
 		
-		return new VeiculoRes(veiculo.getMarca(), veiculo.getModelo(), veiculo.getPlaca(), veiculo.getAno());
+		return new VeiculoRes(veiculo.getMarca(), 
+				veiculo.getModelo(), 
+				veiculo.getPlaca(), 
+				veiculo.getAno(),
+				veiculo.getDiaDeRodizio());
 	}
 	
 	@DeleteMapping("{placa}")
 	@ResponseStatus(code = HttpStatus.NO_CONTENT)
 	public void remover(@PathVariable String placa) {
 		service.remover(placa);
-	}
-	
-	@GetMapping("{placa}/rodizio-hoje")
-	public DiaDeRodizioRes verificaDiaDeRodizio(@PathVariable String placa) {
-		return new DiaDeRodizioRes(service.verificaDiaDeRodizio(service.pesquisar(placa).get()));
 	}
 	
 //	@GetMapping

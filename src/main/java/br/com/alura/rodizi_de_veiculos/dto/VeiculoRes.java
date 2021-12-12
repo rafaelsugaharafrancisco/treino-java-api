@@ -1,5 +1,7 @@
 package br.com.alura.rodizi_de_veiculos.dto;
 
+import br.com.alura.rodizi_de_veiculos.models.DiaDaSemana;
+
 public class VeiculoRes {
 
 	private String marca;
@@ -10,11 +12,14 @@ public class VeiculoRes {
 	
 	private int ano;
 	
-	public VeiculoRes(String marca, String modelo, String placa, int ano) {
+	private DiaDaSemana diaDeRodizio;
+	
+	public VeiculoRes(String marca, String modelo, String placa, int ano, DiaDaSemana diaDeRodizio) {
 		this.marca = marca;
 		this.modelo = modelo;
 		this.placa = placa;
 		this.ano = ano;
+		this.setDiaDeRodizio(diaDeRodizio);
 	}
 
 	public String getMarca() {
@@ -47,5 +52,13 @@ public class VeiculoRes {
 
 	public void setAno(int ano) {
 		this.ano = ano;
+	}
+
+	public DiaDaSemana getDiaDeRodizio() {
+		return diaDeRodizio;
+	}
+
+	public void setDiaDeRodizio(DiaDaSemana diaDeRodizio) {
+		this.diaDeRodizio = diaDeRodizio;
 	}
 }

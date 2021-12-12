@@ -1,6 +1,5 @@
 package br.com.alura.rodizi_de_veiculos.service;
 
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -10,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import br.com.alura.rodizi_de_veiculos.exceptions.VeiculoJaCadastradoException;
 import br.com.alura.rodizi_de_veiculos.exceptions.VeiculoNaoEncontradoException;
+import br.com.alura.rodizi_de_veiculos.models.DiaDaSemana;
 import br.com.alura.rodizi_de_veiculos.models.Veiculo;
 import br.com.alura.rodizi_de_veiculos.repository.VeiculosRepository;
 
@@ -37,6 +37,7 @@ public class VeiculosService implements Service<Veiculo> {
 			throw new VeiculoJaCadastradoException("Veículo placa " + veiculo.getPlaca() + " já cadastrado!");
 		}
 		
+		veiculo.setDiaDeRodizio(this.obtemDiaDeRodizio(veiculo));
 		return Optional.of(repository.save(veiculo));
 	}
 
@@ -64,12 +65,11 @@ public class VeiculosService implements Service<Veiculo> {
 		if (!optVeiculo.isPresent()) {
 			throw new VeiculoNaoEncontradoException();
 		}
-		
+			
 		Veiculo veiculo = optVeiculo.get();
 		veiculo.setMarca(veiculoAlterar.getMarca());
 		veiculo.setModelo(veiculoAlterar.getModelo());
-		veiculo.setPlaca(veiculoAlterar.getPlaca());
-		veiculo.setAno(veiculoAlterar.getAno());
+		veiculo.setAno(veiculoAlterar.getAno());	
 		
 		return Optional.of(veiculo);
 	}
@@ -85,36 +85,38 @@ public class VeiculosService implements Service<Veiculo> {
 		repository.delete(repository.findByPlaca(placa).get());					
 	}
 
-	public String verificaDiaDeRodizio(Veiculo veiculo) {
+	private DiaDaSemana obtemDiaDeRodizio(Veiculo veiculo) {
 		char finalDePlaca = veiculo.getPlaca().charAt(7);
-		String diaDaSemana = LocalDateTime.now().getDayOfWeek().name();
-		boolean diaDeRodizio = false;
+		DiaDaSemana diaDaSemana = null;
 		
-		switch(diaDaSemana) {
-			case "MONDAY": 
-				if (finalDePlaca == '1' || finalDePlaca == '2') diaDeRodizio = true;
+		switch(finalDePlaca) {
+			case '1':
+			case '2':
+				diaDaSemana = DiaDaSemana.SEGUNDA;
 				break;
 			
-			case "TUESDAY":
-				if (finalDePlaca == '3' || finalDePlaca == '4') diaDeRodizio = true;
+			case '3':
+			case '4':
+				diaDaSemana = DiaDaSemana.TERCA;
 				break;
 		
-			case "WEDNESDAY":
-				if (finalDePlaca == '5' || finalDePlaca == '6') diaDeRodizio = true;
+			case '5':
+			case '6':
+				diaDaSemana = DiaDaSemana.QUARTA;
 				break;
 				
-			case "THURSDAY":
-				if (finalDePlaca == '7' || finalDePlaca == '8') diaDeRodizio = true;
+			case '7':
+			case '8':
+				diaDaSemana = DiaDaSemana.QUINTA;
 				break;
 				
-			case "FRIDAY":
-				if (finalDePlaca == '9' || finalDePlaca == '0') diaDeRodizio = true;
+			case '9':
+			case '0':
+				diaDaSemana = DiaDaSemana.SEXTA;
 				break;
 		}
 		
-		if (diaDeRodizio) return "Sim";
-		
-		return "Não";
+		return diaDaSemana;
 	}
 	
 }

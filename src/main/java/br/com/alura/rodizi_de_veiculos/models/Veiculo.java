@@ -2,6 +2,8 @@ package br.com.alura.rodizi_de_veiculos.models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,6 +23,9 @@ public class Veiculo {
 	private String placa;
 
 	private String marca;
+	
+	@Enumerated(EnumType.STRING)
+	private DiaDaSemana diaDeRodizio;
 	
 	public int getId() {
 		return id;
@@ -60,5 +65,13 @@ public class Veiculo {
 	
 	public void setMarca(String marca) {
 		this.marca = marca;
+	}
+
+	public DiaDaSemana getDiaDeRodizio() {
+		return diaDeRodizio;
+	}
+
+	public void setDiaDeRodizio(DiaDaSemana diaDeRodizio) {
+		this.diaDeRodizio = diaDeRodizio;
 	}
 }
