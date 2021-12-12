@@ -1,5 +1,6 @@
 package br.com.alura.rodizi_de_veiculos.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -41,6 +42,9 @@ public class VeiculosService implements Service<Veiculo> {
 		return Optional.of(repository.save(veiculo));
 	}
 
+	public Optional<List<Veiculo>> lista() {
+		return Optional.of(repository.findAll());
+	}
 	@Override
 	public Optional<Veiculo> pesquisar(String placa) {
 		

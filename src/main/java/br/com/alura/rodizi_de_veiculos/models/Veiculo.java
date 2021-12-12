@@ -15,14 +15,14 @@ public class Veiculo {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
+	private String marca;
+	
 	private String modelo;
 	
 	private int ano;
 	
 	@Column(unique = true)
 	private String placa;
-
-	private String marca;
 	
 	@Enumerated(EnumType.STRING)
 	private DiaDaSemana diaDeRodizio;
@@ -33,6 +33,14 @@ public class Veiculo {
 	
 	public void setId(int id) {
 		this.id = id;
+	}
+	
+	public String getMarca() {
+		return marca;
+	}
+	
+	public void setMarca(String marca) {
+		this.marca = marca;
 	}
 	
 	public String getModelo() {
@@ -59,13 +67,6 @@ public class Veiculo {
 		this.placa = placa;
 	}
 	
-	public String getMarca() {
-		return marca;
-	}
-	
-	public void setMarca(String marca) {
-		this.marca = marca;
-	}
 
 	public DiaDaSemana getDiaDeRodizio() {
 		return diaDeRodizio;

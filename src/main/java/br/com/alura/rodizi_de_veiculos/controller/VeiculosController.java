@@ -1,5 +1,8 @@
 package br.com.alura.rodizi_de_veiculos.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +46,12 @@ public class VeiculosController {
 				veiculo.getDiaDeRodizio());
 	}
 	
+	@GetMapping
+	public List<Veiculo> listar() {
+		List<Veiculo> veiculos = service.lista().get();
+		
+		return veiculos;
+	}
 	@GetMapping("{placa}")
 	public VeiculoRes pesquisar(@PathVariable String placa) {
 		Veiculo veiculo = service.pesquisar(placa).get();
@@ -70,9 +79,4 @@ public class VeiculosController {
 	public void remover(@PathVariable String placa) {
 		service.remover(placa);
 	}
-	
-//	@GetMapping
-//	public List<Veiculos> lista() {
-//		return repository.findAll();
-//	}
 }
