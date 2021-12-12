@@ -48,9 +48,7 @@ public class VeiculosController {
 	
 	@GetMapping
 	public List<Veiculo> listar() {
-		List<Veiculo> veiculos = service.lista().get();
-		
-		return veiculos;
+		return service.lista().get();
 	}
 	@GetMapping("{placa}")
 	public VeiculoRes pesquisar(@PathVariable String placa) {
