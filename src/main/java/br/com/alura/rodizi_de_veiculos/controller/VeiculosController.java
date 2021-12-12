@@ -1,5 +1,7 @@
 package br.com.alura.rodizi_de_veiculos.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -31,7 +33,7 @@ public class VeiculosController {
 
 	@PostMapping
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public VeiculoRes criar(@RequestBody VeiculoReq veiculoDto) {
+	public VeiculoRes criar(@RequestBody @Valid VeiculoReq veiculoDto) {
 		Veiculo veiculo = service.criar(veiculoDto.toVeiculo()).get();
 		
 		return new VeiculoRes(veiculo.getMarca(), veiculo.getModelo(), veiculo.getPlaca(), veiculo.getAno());
@@ -45,7 +47,7 @@ public class VeiculosController {
 	}
 
 	@PutMapping("{placa}")
-	public VeiculoRes alterar(@RequestBody VeiculoReq veiculoDto, @PathVariable String placa) {
+	public VeiculoRes alterar(@RequestBody @Valid VeiculoReq veiculoDto, @PathVariable String placa) {
 		Veiculo veiculo = service.alterar(veiculoDto.toVeiculo(), placa).get();
 		
 		return new VeiculoRes(veiculo.getMarca(), veiculo.getModelo(), veiculo.getPlaca(), veiculo.getAno());
