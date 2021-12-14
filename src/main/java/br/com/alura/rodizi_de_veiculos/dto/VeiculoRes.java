@@ -1,6 +1,12 @@
 package br.com.alura.rodizi_de_veiculos.dto;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.data.domain.Page;
+
 import br.com.alura.rodizi_de_veiculos.models.DiaDaSemana;
+import br.com.alura.rodizi_de_veiculos.models.Veiculo;
 
 public class VeiculoRes {
 
@@ -14,12 +20,14 @@ public class VeiculoRes {
 	
 	private DiaDaSemana diaDeRodizio;
 	
-	public VeiculoRes(String marca, String modelo, String placa, int ano, DiaDaSemana diaDeRodizio) {
-		this.marca = marca;
-		this.modelo = modelo;
-		this.placa = placa;
-		this.ano = ano;
-		this.setDiaDeRodizio(diaDeRodizio);
+	public VeiculoRes() {}
+	
+	public VeiculoRes(Veiculo veiculo) {
+		this.marca = veiculo.getMarca();
+		this.modelo = veiculo.getModelo();
+		this.placa = veiculo.getPlaca();
+		this.ano = veiculo.getAno();
+		this.diaDeRodizio = veiculo.getDiaDeRodizio();
 	}
 
 	public String getMarca() {
@@ -60,5 +68,13 @@ public class VeiculoRes {
 
 	public void setDiaDeRodizio(DiaDaSemana diaDeRodizio) {
 		this.diaDeRodizio = diaDeRodizio;
+	}
+	
+	public static List<VeiculoRes> converterParaLista(List<Veiculo> veiculos) {
+		return veiculos.stream().map(VeiculoRes::new).collect(Collectors.toList());
+	}
+	
+	public static Page<VeiculoRes> converterParaPage(Page<Veiculo> veiculos) {
+		return veiculos.map(VeiculoRes::new);
 	}
 }

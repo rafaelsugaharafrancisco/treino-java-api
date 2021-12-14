@@ -1,11 +1,12 @@
 package br.com.alura.rodizi_de_veiculos.service;
 
-import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import br.com.alura.rodizi_de_veiculos.exceptions.VeiculoJaCadastradoException;
@@ -42,8 +43,9 @@ public class VeiculosService implements Service<Veiculo> {
 		return Optional.of(repository.save(veiculo));
 	}
 
-	public Optional<List<Veiculo>> lista() {
-		return Optional.of(repository.findAll());
+	public Optional<Page<Veiculo>> lista(Pageable paginacao) {
+		
+		return Optional.of(repository.findAll(paginacao));
 	}
 	@Override
 	public Optional<Veiculo> pesquisar(String placa) {

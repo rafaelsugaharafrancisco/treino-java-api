@@ -1,11 +1,11 @@
 package br.com.alura.rodizi_de_veiculos.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -37,39 +38,29 @@ public class VeiculosController {
 	@PostMapping
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public VeiculoRes criar(@RequestBody @Valid VeiculoInclusao veiculoDto) {
-		Veiculo veiculo = service.criar(veiculoDto.toVeiculo()).get();
 		
-		return new VeiculoRes(veiculo.getMarca(), 
-				veiculo.getModelo(), 
-				veiculo.getPlaca(), 
-				veiculo.getAno(), 
-				veiculo.getDiaDeRodizio());
+		return new VeiculoRes(service.criar(veiculoDto.toVeiculo()).get());
 	}
 	
 	@GetMapping
-	public List<Veiculo> listar() {
-		return service.lista().get();
+	public Page<VeiculoRes> listar(@RequestParam int pagina, @RequestParam int quantidade) {
+		
+		Pageable paginacao = PageRequest.of(pagina, quantidade);
+		
+		return VeiculoRes.converterParaPage(service.lista(paginacao).get());
 	}
+	
 	@GetMapping("{placa}")
 	public VeiculoRes pesquisar(@PathVariable String placa) {
-		Veiculo veiculo = service.pesquisar(placa).get();
 		
-		return new VeiculoRes(veiculo.getMarca(), 
-				veiculo.getModelo(), 
-				veiculo.getPlaca(), 
-				veiculo.getAno(),
-				veiculo.getDiaDeRodizio());
+		return new VeiculoRes(service.pesquisar(placa).get());
 	}
 
 	@PutMapping("{placa}")
 	public VeiculoRes alterar(@RequestBody @Valid VeiculoAlteracao veiculoDto, @PathVariable String placa) {
 		Veiculo veiculo = service.alterar(veiculoDto.toVeiculo(), placa).get();
 		
-		return new VeiculoRes(veiculo.getMarca(), 
-				veiculo.getModelo(), 
-				veiculo.getPlaca(), 
-				veiculo.getAno(),
-				veiculo.getDiaDeRodizio());
+		return new VeiculoRes(veiculo);
 	}
 	
 	@DeleteMapping("{placa}")
