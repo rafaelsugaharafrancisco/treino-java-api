@@ -47,6 +47,7 @@ public class VeiculosService implements Service<Veiculo> {
 		
 		return Optional.of(repository.findAll(paginacao));
 	}
+	
 	@Override
 	public Optional<Veiculo> pesquisar(String placa) {
 		

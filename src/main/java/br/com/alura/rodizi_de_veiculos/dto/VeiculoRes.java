@@ -20,8 +20,6 @@ public class VeiculoRes {
 	
 	private DiaDaSemana diaDeRodizio;
 	
-	public VeiculoRes() {}
-	
 	public VeiculoRes(Veiculo veiculo) {
 		this.marca = veiculo.getMarca();
 		this.modelo = veiculo.getModelo();
