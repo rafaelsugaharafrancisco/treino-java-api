@@ -1,14 +1,17 @@
 package br.com.alura.rodizi_de_veiculos.controller;
 
+import java.net.URI;
+
 import javax.validation.Valid;
 
-import org.hibernate.annotations.Cascade;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.alura.rodizi_de_veiculos.dto.VeiculoAlteracao;
 import br.com.alura.rodizi_de_veiculos.dto.VeiculoInclusao;
@@ -37,16 +41,17 @@ public class VeiculosController {
 	}
 
 	@PostMapping
-	@ResponseStatus(code = HttpStatus.CREATED)
-	public VeiculoRes criar(@RequestBody @Valid VeiculoInclusao veiculoDto) {
-		
-		return new VeiculoRes(service.criar(veiculoDto.toVeiculo()).get());
+	@CacheEvict(value = "listaDeVeiculos", allEntries = true)
+	public ResponseEntity<VeiculoRes> criar(@RequestBody @Valid VeiculoInclusao veiculoDto, UriComponentsBuilder uriBuilder) {
+	
+		URI location = uriBuilder.path("/veiculos/{placa}").buildAndExpand(veiculoDto.getPlaca()).toUri();
+		return ResponseEntity.created(location).body(new VeiculoRes(service.criar(veiculoDto.toVeiculo()).get()));
 	}
 	
 	// localhost:8080/veiculos?page=0&size=5&sort=placa,asc
-	@Cacheable(value = "listaDeVeiculos")
 	@GetMapping
-	public Page<VeiculoRes> listar(@PageableDefault(sort = "placa") Pageable paginacao) {
+	@Cacheable(value = "listaDeVeiculos")
+	public Page<VeiculoRes> listar(@PageableDefault(sort = "placa", size = 20) Pageable paginacao) {
 		
 		return VeiculoRes.converterParaPage(service.lista(paginacao).get());
 	}
@@ -58,6 +63,7 @@ public class VeiculosController {
 	}
 
 	@PutMapping("{placa}")
+	@CacheEvict(value = "listaDeVeiculos", allEntries = true)
 	public VeiculoRes alterar(@RequestBody @Valid VeiculoAlteracao veiculoDto, @PathVariable String placa) {
 		Veiculo veiculo = service.alterar(veiculoDto.toVeiculo(), placa).get();
 		
@@ -65,6 +71,7 @@ public class VeiculosController {
 	}
 	
 	@DeleteMapping("{placa}")
+	@CacheEvict(value = "listaDeVeiculos", allEntries = true)
 	@ResponseStatus(code = HttpStatus.NO_CONTENT)
 	public void remover(@PathVariable String placa) {
 		service.remover(placa);

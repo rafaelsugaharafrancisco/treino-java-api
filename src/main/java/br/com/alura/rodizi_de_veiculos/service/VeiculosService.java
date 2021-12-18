@@ -82,6 +82,7 @@ public class VeiculosService implements Service<Veiculo> {
 	}
 
 	@Override
+	@Transactional
 	public void remover(String placa) {
 		Optional<Veiculo> optVeiculo = repository.findByPlaca(placa);
 		
