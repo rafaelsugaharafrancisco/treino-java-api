@@ -20,6 +20,9 @@ public class VeiculosService implements Service<Veiculo> {
 
 	private VeiculosRepository repository;
 	
+	public VeiculosService() {
+	}
+	
 	@Autowired
 	public VeiculosService(VeiculosRepository repository) {
 		this.repository = repository;
@@ -126,5 +129,4 @@ public class VeiculosService implements Service<Veiculo> {
 		
 		return diaDaSemana;
 	}
-	
 }

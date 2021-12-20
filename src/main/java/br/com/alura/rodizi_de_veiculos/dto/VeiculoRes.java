@@ -1,5 +1,6 @@
 package br.com.alura.rodizi_de_veiculos.dto;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,12 +21,15 @@ public class VeiculoRes {
 	
 	private DiaDaSemana diaDeRodizio;
 	
+	private boolean rodizio;
+	
 	public VeiculoRes(Veiculo veiculo) {
 		this.marca = veiculo.getMarca();
 		this.modelo = veiculo.getModelo();
 		this.placa = veiculo.getPlaca();
 		this.ano = veiculo.getAno();
 		this.diaDeRodizio = veiculo.getDiaDeRodizio();
+		this.rodizio = veiculo.getDiaDeRodizio().getValor() == LocalDateTime.now().getDayOfWeek().getValue();
 	}
 
 	public String getMarca() {
@@ -74,5 +78,13 @@ public class VeiculoRes {
 	
 	public static Page<VeiculoRes> converterParaPage(Page<Veiculo> veiculos) {
 		return veiculos.map(VeiculoRes::new);
+	}
+
+	public boolean isRodizio() {
+		return rodizio;
+	}
+
+	public void setRodizio(boolean rodizio) {
+		this.rodizio = rodizio;
 	}
 }

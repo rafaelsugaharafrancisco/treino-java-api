@@ -75,4 +75,5 @@ public class Veiculo {
 	public void setDiaDeRodizio(DiaDaSemana diaDeRodizio) {
 		this.diaDeRodizio = diaDeRodizio;
 	}
+
 }
