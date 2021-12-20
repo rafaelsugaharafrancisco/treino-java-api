@@ -2,7 +2,7 @@ package br.com.alura.rodizi_de_veiculos.service;
 
 import java.util.Optional;
 
-public interface Service<T> {
+public interface Services<T> {
 	
 	public Optional<T> criar(Object object);
 	

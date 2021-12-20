@@ -8,15 +8,15 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import br.com.alura.rodizi_de_veiculos.exceptions.VeiculoJaCadastradoException;
 import br.com.alura.rodizi_de_veiculos.exceptions.VeiculoNaoEncontradoException;
 import br.com.alura.rodizi_de_veiculos.models.Veiculo;
 import br.com.alura.rodizi_de_veiculos.repository.VeiculosRepository;
 
-@Component
-public class VeiculosService implements Service<Veiculo> {
+@Service
+public class VeiculosService implements Services<Veiculo> {
 
 	private VeiculosRepository repository;
 	
