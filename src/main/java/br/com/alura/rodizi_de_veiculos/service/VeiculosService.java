@@ -1,5 +1,6 @@
 package br.com.alura.rodizi_de_veiculos.service;
 
+import java.time.DayOfWeek;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -11,7 +12,6 @@ import org.springframework.stereotype.Component;
 
 import br.com.alura.rodizi_de_veiculos.exceptions.VeiculoJaCadastradoException;
 import br.com.alura.rodizi_de_veiculos.exceptions.VeiculoNaoEncontradoException;
-import br.com.alura.rodizi_de_veiculos.models.DiaDaSemana;
 import br.com.alura.rodizi_de_veiculos.models.Veiculo;
 import br.com.alura.rodizi_de_veiculos.repository.VeiculosRepository;
 
@@ -96,34 +96,34 @@ public class VeiculosService implements Service<Veiculo> {
 		repository.delete(optVeiculo.get());					
 	}
 
-	private DiaDaSemana obtemDiaDeRodizio(Veiculo veiculo) {
+	private DayOfWeek obtemDiaDeRodizio(Veiculo veiculo) {
 		char finalDePlaca = veiculo.getPlaca().charAt(7);
-		DiaDaSemana diaDaSemana = null;
+		DayOfWeek diaDaSemana = null;
 		
 		switch(finalDePlaca) {
 			case '1':
 			case '2':
-				diaDaSemana = DiaDaSemana.SEGUNDA;
+				diaDaSemana = DayOfWeek.MONDAY;
 				break;
 			
 			case '3':
 			case '4':
-				diaDaSemana = DiaDaSemana.TERCA;
+				diaDaSemana = DayOfWeek.TUESDAY;
 				break;
 		
 			case '5':
 			case '6':
-				diaDaSemana = DiaDaSemana.QUARTA;
+				diaDaSemana = DayOfWeek.WEDNESDAY;
 				break;
 				
 			case '7':
 			case '8':
-				diaDaSemana = DiaDaSemana.QUINTA;
+				diaDaSemana = DayOfWeek.THURSDAY;
 				break;
 				
 			case '9':
 			case '0':
-				diaDaSemana = DiaDaSemana.SEXTA;
+				diaDaSemana = DayOfWeek.FRIDAY;
 				break;
 		}
 		

@@ -1,12 +1,12 @@
 package br.com.alura.rodizi_de_veiculos.dto;
 
+import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Page;
 
-import br.com.alura.rodizi_de_veiculos.models.DiaDaSemana;
 import br.com.alura.rodizi_de_veiculos.models.Veiculo;
 
 public class VeiculoRes {
@@ -19,7 +19,7 @@ public class VeiculoRes {
 	
 	private int ano;
 	
-	private DiaDaSemana diaDeRodizio;
+	private DayOfWeek diaDeRodizio;
 	
 	private boolean rodizio;
 	
@@ -29,7 +29,7 @@ public class VeiculoRes {
 		this.placa = veiculo.getPlaca();
 		this.ano = veiculo.getAno();
 		this.diaDeRodizio = veiculo.getDiaDeRodizio();
-		this.rodizio = veiculo.getDiaDeRodizio().getValor() == LocalDateTime.now().getDayOfWeek().getValue();
+		this.rodizio = veiculo.getDiaDeRodizio() == LocalDateTime.now().getDayOfWeek();
 	}
 
 	public String getMarca() {
@@ -64,20 +64,12 @@ public class VeiculoRes {
 		this.ano = ano;
 	}
 
-	public DiaDaSemana getDiaDeRodizio() {
+	public DayOfWeek getDiaDeRodizio() {
 		return diaDeRodizio;
 	}
 
-	public void setDiaDeRodizio(DiaDaSemana diaDeRodizio) {
+	public void setDiaDeRodizio(DayOfWeek diaDeRodizio) {
 		this.diaDeRodizio = diaDeRodizio;
-	}
-	
-	public static List<VeiculoRes> converterParaLista(List<Veiculo> veiculos) {
-		return veiculos.stream().map(VeiculoRes::new).collect(Collectors.toList());
-	}
-	
-	public static Page<VeiculoRes> converterParaPage(Page<Veiculo> veiculos) {
-		return veiculos.map(VeiculoRes::new);
 	}
 
 	public boolean isRodizio() {
@@ -86,5 +78,13 @@ public class VeiculoRes {
 
 	public void setRodizio(boolean rodizio) {
 		this.rodizio = rodizio;
+	}
+	
+	public static List<VeiculoRes> converterParaLista(List<Veiculo> veiculos) {
+		return veiculos.stream().map(VeiculoRes::new).collect(Collectors.toList());
+	}
+	
+	public static Page<VeiculoRes> converterParaPage(Page<Veiculo> veiculos) {
+		return veiculos.map(VeiculoRes::new);
 	}
 }

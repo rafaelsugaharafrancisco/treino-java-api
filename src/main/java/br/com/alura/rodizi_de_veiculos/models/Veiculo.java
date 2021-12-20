@@ -1,5 +1,7 @@
 package br.com.alura.rodizi_de_veiculos.models;
 
+import java.time.DayOfWeek;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -8,7 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Entity
+@Entity(name = "veiculos")
 public class Veiculo {
 	
 	@Id
@@ -25,7 +27,7 @@ public class Veiculo {
 	private String placa;
 	
 	@Enumerated(EnumType.STRING)
-	private DiaDaSemana diaDeRodizio;
+	private DayOfWeek diaDeRodizio;
 	
 	public int getId() {
 		return id;
@@ -68,11 +70,11 @@ public class Veiculo {
 	}
 	
 
-	public DiaDaSemana getDiaDeRodizio() {
+	public DayOfWeek getDiaDeRodizio() {
 		return diaDeRodizio;
 	}
 
-	public void setDiaDeRodizio(DiaDaSemana diaDeRodizio) {
+	public void setDiaDeRodizio(DayOfWeek diaDeRodizio) {
 		this.diaDeRodizio = diaDeRodizio;
 	}
 
