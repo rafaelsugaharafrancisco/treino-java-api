@@ -44,8 +44,10 @@ public class VeiculosController {
 	@CacheEvict(value = "listaDeVeiculos", allEntries = true)
 	public ResponseEntity<VeiculoRes> criar(@RequestBody @Valid VeiculoInclusao veiculoDto, UriComponentsBuilder uriBuilder) {
 	
-		URI location = uriBuilder.path("/veiculos/{placa}").buildAndExpand(veiculoDto.getPlaca()).toUri();
-		return ResponseEntity.created(location).body(new VeiculoRes(service.criar(veiculoDto.toVeiculo()).get()));
+		Veiculo veiculo = service.criar(veiculoDto.toVeiculo()).get();
+		URI location = uriBuilder.path("/veiculos/{placa}").buildAndExpand(veiculo.getPlaca()).toUri();
+		
+		return ResponseEntity.created(location).body(new VeiculoRes(veiculo));
 	}
 	
 	// localhost:8080/veiculos?page=0&size=5&sort=placa,asc

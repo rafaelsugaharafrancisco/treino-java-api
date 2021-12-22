@@ -36,53 +36,29 @@ public class VeiculoRes {
 		return marca;
 	}
 
-	public void setMarca(String marca) {
-		this.marca = marca;
-	}
-
 	public String getModelo() {
 		return modelo;
-	}
-
-	public void setModelo(String modelo) {
-		this.modelo = modelo;
 	}
 
 	public String getPlaca() {
 		return placa;
 	}
 
-	public void setPlaca(String placa) {
-		this.placa = placa;
-	}
-
 	public int getAno() {
 		return ano;
-	}
-
-	public void setAno(int ano) {
-		this.ano = ano;
 	}
 
 	public DayOfWeek getDiaDeRodizio() {
 		return diaDeRodizio;
 	}
 
-	public void setDiaDeRodizio(DayOfWeek diaDeRodizio) {
-		this.diaDeRodizio = diaDeRodizio;
-	}
-
 	public boolean isRodizio() {
 		return rodizio;
 	}
-
-	public void setRodizio(boolean rodizio) {
-		this.rodizio = rodizio;
-	}
 	
-	public static List<VeiculoRes> converterParaLista(List<Veiculo> veiculos) {
-		return veiculos.stream().map(VeiculoRes::new).collect(Collectors.toList());
-	}
+//	public static List<VeiculoRes> converterParaLista(List<Veiculo> veiculos) {
+//		return veiculos.stream().map(VeiculoRes::new).collect(Collectors.toList());
+//	}
 	
 	public static Page<VeiculoRes> converterParaPage(Page<Veiculo> veiculos) {
 		return veiculos.map(VeiculoRes::new);

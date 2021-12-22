@@ -14,16 +14,10 @@ public class LoginForm {
 	@NotBlank(message = "Não pode ser nulo ou branco")
 	private String senha;
 	
-	public String getEmail() {
-		return email;
-	}
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
-	public String getSenha() {
-		return senha;
-	}
+
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
