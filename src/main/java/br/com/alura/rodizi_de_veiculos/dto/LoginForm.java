@@ -3,6 +3,8 @@ package br.com.alura.rodizi_de_veiculos.dto;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+
 public class LoginForm {
 	
 	@NotBlank(message = "Não pode ser nulo ou branco")
@@ -24,6 +26,9 @@ public class LoginForm {
 	}
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+	public UsernamePasswordAuthenticationToken converter() {
+		return new UsernamePasswordAuthenticationToken(email, senha);
 	}
 
 }
