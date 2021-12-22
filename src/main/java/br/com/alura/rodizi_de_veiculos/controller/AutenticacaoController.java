@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.alura.rodizi_de_veiculos.dto.LoginForm;
+import br.com.alura.rodizi_de_veiculos.dto.TokenDto;
 import br.com.alura.rodizi_de_veiculos.service.TokenService;
 
 @RestController
@@ -30,16 +31,15 @@ public class AutenticacaoController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<?> autenticar(@RequestBody @Valid LoginForm form) throws AuthenticationException {
+	public ResponseEntity<TokenDto> autenticar(@RequestBody @Valid LoginForm form) throws AuthenticationException {
 		
 		UsernamePasswordAuthenticationToken dadosLogin = form.converter();
 		
 		try {
 			Authentication authenticate = authManager.authenticate(dadosLogin);
 			String token = tokenService.gerarToken(authenticate);
-			System.out.println(token);
 			
-			return ResponseEntity.ok().build();			
+			return ResponseEntity.ok(new TokenDto(token, "bearer"));			
 			
 		} catch (Exception e) {
 			

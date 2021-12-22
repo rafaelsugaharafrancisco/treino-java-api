@@ -22,8 +22,7 @@ public class TokenService {
 	public String gerarToken(Authentication authentication) {
 		Usuario usuarioLogado = (Usuario) authentication.getPrincipal();
 		
-		long tempoExpiracao = new Date().getTime() + Long.parseLong(expiration);
-		Date exp = new Date(tempoExpiracao);
+		Date exp = new Date(new Date().getTime() + Long.parseLong(expiration));
 				
 		return Jwts.builder()
 				   .setIssuer("Rodizio de veículo")
