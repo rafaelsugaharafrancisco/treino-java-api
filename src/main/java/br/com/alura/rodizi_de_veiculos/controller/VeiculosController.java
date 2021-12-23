@@ -23,9 +23,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import br.com.alura.rodizi_de_veiculos.dto.VeiculoDto;
 import br.com.alura.rodizi_de_veiculos.dto.forms.VeiculoAlteracaoForm;
 import br.com.alura.rodizi_de_veiculos.dto.forms.VeiculoInclusaoForm;
-import br.com.alura.rodizi_de_veiculos.dto.success.VeiculoDto;
 import br.com.alura.rodizi_de_veiculos.models.Veiculo;
 import br.com.alura.rodizi_de_veiculos.service.VeiculosService;
 

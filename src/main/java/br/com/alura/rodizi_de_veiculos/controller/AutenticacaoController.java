@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.alura.rodizi_de_veiculos.dto.TokenDto;
 import br.com.alura.rodizi_de_veiculos.dto.forms.LoginForm;
-import br.com.alura.rodizi_de_veiculos.dto.success.TokenDto;
 import br.com.alura.rodizi_de_veiculos.service.TokenService;
 
 @RestController

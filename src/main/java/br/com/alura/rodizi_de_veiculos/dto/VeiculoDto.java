@@ -1,4 +1,4 @@
-package br.com.alura.rodizi_de_veiculos.dto.success;
+package br.com.alura.rodizi_de_veiculos.dto;
 
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;

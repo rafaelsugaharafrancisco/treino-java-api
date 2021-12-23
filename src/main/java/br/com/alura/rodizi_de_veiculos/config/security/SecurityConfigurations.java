@@ -12,18 +12,23 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import br.com.alura.rodizi_de_veiculos.config.filter.AutenticacaoTokenFilter;
 import br.com.alura.rodizi_de_veiculos.service.AutenticacaoService;
+import br.com.alura.rodizi_de_veiculos.service.TokenService;
 
 @EnableWebSecurity
 @Configuration
 public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
 
 	private AutenticacaoService autenticacaoService;
+	private TokenService tokenService;
 	
 	@Autowired
-	public SecurityConfigurations(AutenticacaoService autenticacaoService) {
+	public SecurityConfigurations(AutenticacaoService autenticacaoService, TokenService tokenService) {
 		this.autenticacaoService = autenticacaoService;
+		this.tokenService = tokenService;
 	}
 	
 	
@@ -49,7 +54,9 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
 		.anyRequest().authenticated()
 		.and()
 		.csrf().disable()
-		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+		.and()
+		.addFilterBefore(new AutenticacaoTokenFilter(tokenService), UsernamePasswordAuthenticationFilter.class);
 	}
 	
 	//configuração de recursos estáticos
