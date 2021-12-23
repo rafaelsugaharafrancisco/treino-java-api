@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import br.com.alura.rodizi_de_veiculos.dto.ErroDeFormularioRes;
+import br.com.alura.rodizi_de_veiculos.dto.ErroDeLoginRes;
 import br.com.alura.rodizi_de_veiculos.dto.ErroExceptionRes;
 import br.com.alura.rodizi_de_veiculos.dto.VeiculoJaCadastradoRes;
 import br.com.alura.rodizi_de_veiculos.dto.VeiculoNaoEncontradoRes;
@@ -23,6 +25,12 @@ public class ErroExceptionHandler {
 	@ExceptionHandler(VeiculoNaoEncontradoException.class)
 	public VeiculoNaoEncontradoRes veiculoNaoEncontrado(VeiculoNaoEncontradoException e) {
 		return new VeiculoNaoEncontradoRes(e.getMessage());
+	}
+	
+	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
+	@ExceptionHandler(BadCredentialsException.class)
+	public ErroDeLoginRes erroDeLogin(BadCredentialsException e) {
+		return new ErroDeLoginRes(e.getMessage());
 	}
 	
 	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
