@@ -1,4 +1,4 @@
-package br.com.alura.rodizi_de_veiculos.dto;
+package br.com.alura.rodizi_de_veiculos.dto.success;
 
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
@@ -9,7 +9,7 @@ import org.springframework.data.domain.Page;
 
 import br.com.alura.rodizi_de_veiculos.models.Veiculo;
 
-public class VeiculoRes {
+public class VeiculoDto {
 
 	private String marca;
 	
@@ -23,7 +23,7 @@ public class VeiculoRes {
 	
 	private boolean rodizio;
 	
-	public VeiculoRes(Veiculo veiculo) {
+	public VeiculoDto(Veiculo veiculo) {
 		this.marca = veiculo.getMarca();
 		this.modelo = veiculo.getModelo();
 		this.placa = veiculo.getPlaca();
@@ -60,7 +60,7 @@ public class VeiculoRes {
 //		return veiculos.stream().map(VeiculoRes::new).collect(Collectors.toList());
 //	}
 	
-	public static Page<VeiculoRes> converterParaPage(Page<Veiculo> veiculos) {
-		return veiculos.map(VeiculoRes::new);
+	public static Page<VeiculoDto> converterParaPage(Page<Veiculo> veiculos) {
+		return veiculos.map(VeiculoDto::new);
 	}
 }

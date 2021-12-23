@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.alura.rodizi_de_veiculos.dto.LoginForm;
-import br.com.alura.rodizi_de_veiculos.dto.TokenDto;
+import br.com.alura.rodizi_de_veiculos.dto.forms.LoginForm;
+import br.com.alura.rodizi_de_veiculos.dto.success.TokenDto;
 import br.com.alura.rodizi_de_veiculos.service.TokenService;
 
 @RestController
@@ -31,7 +31,7 @@ public class AutenticacaoController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<?> autenticar(@RequestBody @Valid LoginForm form) {
+	public ResponseEntity<TokenDto> autenticar(@RequestBody @Valid LoginForm form) {
 		
 		UsernamePasswordAuthenticationToken dadosLogin = form.converter();
 		

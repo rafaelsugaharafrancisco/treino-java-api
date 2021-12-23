@@ -1,4 +1,4 @@
-package br.com.alura.rodizi_de_veiculos.config;
+package br.com.alura.rodizi_de_veiculos.config.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

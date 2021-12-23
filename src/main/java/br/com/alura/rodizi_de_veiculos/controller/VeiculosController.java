@@ -23,9 +23,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import br.com.alura.rodizi_de_veiculos.dto.VeiculoAlteracao;
-import br.com.alura.rodizi_de_veiculos.dto.VeiculoInclusao;
-import br.com.alura.rodizi_de_veiculos.dto.VeiculoRes;
+import br.com.alura.rodizi_de_veiculos.dto.forms.VeiculoAlteracaoForm;
+import br.com.alura.rodizi_de_veiculos.dto.forms.VeiculoInclusaoForm;
+import br.com.alura.rodizi_de_veiculos.dto.success.VeiculoDto;
 import br.com.alura.rodizi_de_veiculos.models.Veiculo;
 import br.com.alura.rodizi_de_veiculos.service.VeiculosService;
 
@@ -42,34 +42,34 @@ public class VeiculosController {
 
 	@PostMapping
 	@CacheEvict(value = "listaDeVeiculos", allEntries = true)
-	public ResponseEntity<VeiculoRes> criar(@RequestBody @Valid VeiculoInclusao veiculoDto, UriComponentsBuilder uriBuilder) {
+	public ResponseEntity<VeiculoDto> criar(@RequestBody @Valid VeiculoInclusaoForm veiculoDto, UriComponentsBuilder uriBuilder) {
 	
 		Veiculo veiculo = service.criar(veiculoDto.toVeiculo()).get();
 		URI location = uriBuilder.path("/veiculos/{placa}").buildAndExpand(veiculo.getPlaca()).toUri();
 		
-		return ResponseEntity.created(location).body(new VeiculoRes(veiculo));
+		return ResponseEntity.created(location).body(new VeiculoDto(veiculo));
 	}
 	
 	// localhost:8080/veiculos?page=0&size=5&sort=placa,asc
 	@GetMapping
 	@Cacheable(value = "listaDeVeiculos")
-	public Page<VeiculoRes> listar(@PageableDefault(sort = "placa", size = 20) Pageable paginacao) {
+	public Page<VeiculoDto> listar(@PageableDefault(sort = "placa", size = 20) Pageable paginacao) {
 		
-		return VeiculoRes.converterParaPage(service.lista(paginacao).get());
+		return VeiculoDto.converterParaPage(service.lista(paginacao).get());
 	}
 	
 	@GetMapping("{placa}")
-	public VeiculoRes pesquisar(@PathVariable String placa) {
+	public VeiculoDto pesquisar(@PathVariable String placa) {
 		
-		return new VeiculoRes(service.pesquisar(placa).get());
+		return new VeiculoDto(service.pesquisar(placa).get());
 	}
 
 	@PutMapping("{placa}")
 	@CacheEvict(value = "listaDeVeiculos", allEntries = true)
-	public VeiculoRes alterar(@RequestBody @Valid VeiculoAlteracao veiculoDto, @PathVariable String placa) {
+	public VeiculoDto alterar(@RequestBody @Valid VeiculoAlteracaoForm veiculoDto, @PathVariable String placa) {
 		Veiculo veiculo = service.alterar(veiculoDto.toVeiculo(), placa).get();
 		
-		return new VeiculoRes(veiculo);
+		return new VeiculoDto(veiculo);
 	}
 	
 	@DeleteMapping("{placa}")

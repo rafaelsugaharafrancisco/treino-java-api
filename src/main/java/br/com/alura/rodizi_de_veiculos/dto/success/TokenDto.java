@@ -1,4 +1,4 @@
-package br.com.alura.rodizi_de_veiculos.dto;
+package br.com.alura.rodizi_de_veiculos.dto.success;
 
 public class TokenDto {
 

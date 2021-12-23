@@ -12,41 +12,41 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import br.com.alura.rodizi_de_veiculos.dto.ErroDeFormularioRes;
-import br.com.alura.rodizi_de_veiculos.dto.ErroDeLoginRes;
-import br.com.alura.rodizi_de_veiculos.dto.ErroExceptionRes;
-import br.com.alura.rodizi_de_veiculos.dto.VeiculoJaCadastradoRes;
-import br.com.alura.rodizi_de_veiculos.dto.VeiculoNaoEncontradoRes;
+import br.com.alura.rodizi_de_veiculos.dto.errors.ErroDeFormularioDto;
+import br.com.alura.rodizi_de_veiculos.dto.errors.ErroDeLoginDto;
+import br.com.alura.rodizi_de_veiculos.dto.errors.ErroExceptionDto;
+import br.com.alura.rodizi_de_veiculos.dto.warnings.VeiculoJaCadastradoDto;
+import br.com.alura.rodizi_de_veiculos.dto.warnings.VeiculoNaoEncontradoDto;
 
 @RestControllerAdvice
 public class ErroExceptionHandler {
 	
 	@ResponseStatus(code = HttpStatus.NOT_FOUND)
 	@ExceptionHandler(VeiculoNaoEncontradoException.class)
-	public VeiculoNaoEncontradoRes veiculoNaoEncontrado(VeiculoNaoEncontradoException e) {
-		return new VeiculoNaoEncontradoRes(e.getMessage());
+	public VeiculoNaoEncontradoDto veiculoNaoEncontrado(VeiculoNaoEncontradoException e) {
+		return new VeiculoNaoEncontradoDto(e.getMessage());
 	}
 	
 	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(BadCredentialsException.class)
-	public ErroDeLoginRes erroDeLogin(BadCredentialsException e) {
-		return new ErroDeLoginRes(e.getMessage());
+	public ErroDeLoginDto erroDeLogin(BadCredentialsException e) {
+		return new ErroDeLoginDto(e.getMessage());
 	}
 	
 	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(VeiculoJaCadastradoException.class)
-	public VeiculoJaCadastradoRes veiculoJaCadastrado(VeiculoJaCadastradoException e) {
-		return new VeiculoJaCadastradoRes(e.getMessage());
+	public VeiculoJaCadastradoDto veiculoJaCadastrado(VeiculoJaCadastradoException e) {
+		return new VeiculoJaCadastradoDto(e.getMessage());
 	}
 	
 	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(MethodArgumentNotValidException.class)
-	public List<ErroDeFormularioRes> erroDeFormulario(MethodArgumentNotValidException e) {
-		List<ErroDeFormularioRes> errosDeFormulario = new ArrayList<>();
+	public List<ErroDeFormularioDto> erroDeFormulario(MethodArgumentNotValidException e) {
+		List<ErroDeFormularioDto> errosDeFormulario = new ArrayList<>();
 		List<FieldError> camposComErros = e.getBindingResult().getFieldErrors();
 		
 		camposComErros.forEach(erro -> {
-			errosDeFormulario.add(new ErroDeFormularioRes(erro.getDefaultMessage(), erro.getField()));
+			errosDeFormulario.add(new ErroDeFormularioDto(erro.getDefaultMessage(), erro.getField()));
 		});
 		
 		return errosDeFormulario;
@@ -54,13 +54,13 @@ public class ErroExceptionHandler {
 	
 	@ResponseStatus(code = HttpStatus.METHOD_NOT_ALLOWED)
 	@ExceptionHandler(HttpRequestMethodNotSupportedException.class)
-	public ErroExceptionRes erroMetodoHttp(HttpRequestMethodNotSupportedException e) {
-		return new ErroExceptionRes(e.getMessage());
+	public ErroExceptionDto erroMetodoHttp(HttpRequestMethodNotSupportedException e) {
+		return new ErroExceptionDto(e.getMessage());
 	}
 	
 	@ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
 	@ExceptionHandler(Exception.class)
-	public ErroExceptionRes erroGenerico(Exception e) {
-		return new ErroExceptionRes(e.getMessage());
+	public ErroExceptionDto erroGenerico(Exception e) {
+		return new ErroExceptionDto(e.getMessage());
 	}
 }
