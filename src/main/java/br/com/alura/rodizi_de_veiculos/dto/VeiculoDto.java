@@ -2,8 +2,6 @@ package br.com.alura.rodizi_de_veiculos.dto;
 
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Page;
 

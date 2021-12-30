@@ -7,6 +7,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import br.com.alura.rodizi_de_veiculos.models.Usuario;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
@@ -42,5 +43,11 @@ public class TokenService {
 			
 			return false;
 		}
+	}
+
+	public String getEmailUsuario(String token) {
+		Claims body = Jwts.parser().setSigningKey(this.secretKey).parseClaimsJws(token).getBody();
+		
+		return body.getSubject();
 	}
 }

@@ -39,7 +39,7 @@ public class AutenticacaoController {
 			Authentication authenticate = authManager.authenticate(dadosLogin);
 			String token = tokenService.gerarToken(authenticate);
 			
-			return ResponseEntity.ok(new TokenDto(token, "bearer"));			
+			return ResponseEntity.ok(new TokenDto(token, "Bearer"));			
 			
 		} catch (BadCredentialsException e) {
 			throw new BadCredentialsException(e.getMessage());
