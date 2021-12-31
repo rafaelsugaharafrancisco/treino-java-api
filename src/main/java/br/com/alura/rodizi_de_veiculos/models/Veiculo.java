@@ -10,7 +10,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
+
 @Entity(name = "veiculos")
+@SQLDelete(sql = "UPDATE veiculos SET removido = true WHERE id = ?")
+@Where(clause = "removido = false")
 public class Veiculo {
 	
 	@Id
@@ -28,6 +33,8 @@ public class Veiculo {
 	
 	@Enumerated(EnumType.STRING)
 	private DayOfWeek diaDeRodizio;
+	
+	private boolean removido = Boolean.FALSE;
 	
 	public int getId() {
 		return id;
@@ -76,6 +83,14 @@ public class Veiculo {
 
 	public void setDiaDeRodizio(DayOfWeek diaDeRodizio) {
 		this.diaDeRodizio = diaDeRodizio;
+	}
+
+	public boolean isRemovido() {
+		return removido;
+	}
+
+	public void setRemovido(boolean removido) {
+		this.removido = removido;
 	}
 
 }
