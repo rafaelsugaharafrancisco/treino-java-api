@@ -42,7 +42,7 @@ public class AutenticacaoController {
 			return ResponseEntity.ok(new TokenDto(token, "Bearer"));			
 			
 		} catch (BadCredentialsException e) {
-			throw new BadCredentialsException(e.getMessage());
+			throw new BadCredentialsException("dados do login inválidos!");
 //			return ResponseEntity.badRequest().body(new ErroExceptionRes("usuário / senha inválido"));
 		}
 	}
