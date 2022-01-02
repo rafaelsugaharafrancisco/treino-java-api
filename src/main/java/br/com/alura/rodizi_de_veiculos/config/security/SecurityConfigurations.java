@@ -51,6 +51,8 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
 		.antMatchers(HttpMethod.GET, "/veiculos").permitAll()
 		.antMatchers(HttpMethod.GET, "/veiculos/*").permitAll()
 		.antMatchers(HttpMethod.POST, "/auth").permitAll()
+		.antMatchers(HttpMethod.DELETE, "/veiculos/*").hasRole("ADMINISTRADOR")
+		.antMatchers(HttpMethod.GET, "/actuator/**").hasRole("ADMINISTRADOR")
 		.anyRequest().authenticated()
 		.and()
 		.csrf().disable()
