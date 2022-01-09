@@ -22,7 +22,7 @@ import br.com.alura.rodizi_de_veiculos.service.TokenService;
 
 @EnableWebSecurity
 @Configuration
-@Profile(value = { "prod", "teste" } )
+@Profile(value = { "prod", "test" } )
 public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
 
 	@Autowired

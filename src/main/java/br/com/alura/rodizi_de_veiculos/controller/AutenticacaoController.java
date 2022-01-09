@@ -20,7 +20,7 @@ import br.com.alura.rodizi_de_veiculos.service.TokenService;
 
 @RestController
 @RequestMapping("/auth")
-@Profile(value = { "prod", "teste" } )
+@Profile(value = { "prod", "test" } )
 public class AutenticacaoController {
 	
 	private AuthenticationManager authManager;
