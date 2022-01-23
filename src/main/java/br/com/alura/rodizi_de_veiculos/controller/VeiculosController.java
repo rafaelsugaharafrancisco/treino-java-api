@@ -24,8 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.alura.rodizi_de_veiculos.dto.VeiculoDto;
-import br.com.alura.rodizi_de_veiculos.dto.forms.VeiculoAlteracaoForm;
-import br.com.alura.rodizi_de_veiculos.dto.forms.VeiculoInclusaoForm;
+import br.com.alura.rodizi_de_veiculos.dto.forms.VeiculoForm;
 import br.com.alura.rodizi_de_veiculos.models.Veiculo;
 import br.com.alura.rodizi_de_veiculos.service.VeiculosService;
 
@@ -42,7 +41,7 @@ public class VeiculosController {
 
 	@PostMapping
 	@CacheEvict(value = "listaDeVeiculos", allEntries = true)
-	public ResponseEntity<VeiculoDto> criar(@RequestBody @Valid VeiculoInclusaoForm veiculoDto, UriComponentsBuilder uriBuilder) {
+	public ResponseEntity<VeiculoDto> criar(@RequestBody @Valid VeiculoForm veiculoDto, UriComponentsBuilder uriBuilder) {
 	
 		Veiculo veiculo = service.criar(veiculoDto.toVeiculo()).get();
 		URI location = uriBuilder.path("/veiculos/{placa}").buildAndExpand(veiculo.getPlaca()).toUri();
@@ -66,8 +65,8 @@ public class VeiculosController {
 
 	@PutMapping("{placa}")
 	@CacheEvict(value = "listaDeVeiculos", allEntries = true)
-	public VeiculoDto alterar(@RequestBody @Valid VeiculoAlteracaoForm veiculoDto, @PathVariable String placa) {
-		Veiculo veiculo = service.alterar(veiculoDto.toVeiculo(), placa).get();
+	public VeiculoDto alterar(@RequestBody @Valid VeiculoForm veiculoForm, @PathVariable String placa) {
+		Veiculo veiculo = service.alterar(veiculoForm.toVeiculo(), placa).get();
 		
 		return new VeiculoDto(veiculo);
 	}

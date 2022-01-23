@@ -1,10 +1,9 @@
 package br.com.alura.rodizi_de_veiculos.dto;
 
-import java.time.DayOfWeek;
-import java.time.LocalDateTime;
-
 import org.springframework.data.domain.Page;
 
+import br.com.alura.rodizi_de_veiculos.models.DiaDaSemana;
+import br.com.alura.rodizi_de_veiculos.models.TipoDeVeiculo;
 import br.com.alura.rodizi_de_veiculos.models.Veiculo;
 
 public class VeiculoDto {
@@ -13,21 +12,24 @@ public class VeiculoDto {
 	
 	private String modelo;
 	
+	private TipoDeVeiculo tipo;
+	
 	private String placa;
 	
 	private int ano;
 	
-	private DayOfWeek diaDeRodizio;
+	private DiaDaSemana diaDeRodizio;
 	
 	private boolean rodizio;
 	
 	public VeiculoDto(Veiculo veiculo) {
 		this.marca = veiculo.getMarca();
 		this.modelo = veiculo.getModelo();
+		this.tipo = veiculo.getTipo();
 		this.placa = veiculo.getPlaca();
 		this.ano = veiculo.getAno();
 		this.diaDeRodizio = veiculo.getDiaDeRodizio();
-		this.rodizio = veiculo.getDiaDeRodizio() == LocalDateTime.now().getDayOfWeek();
+		this.rodizio = veiculo.getTipo().ehRodizio(veiculo.getDiaDeRodizio());
 	}
 
 	public String getMarca() {
@@ -38,6 +40,10 @@ public class VeiculoDto {
 		return modelo;
 	}
 
+	public TipoDeVeiculo getTipo() {
+		return tipo;
+	}
+
 	public String getPlaca() {
 		return placa;
 	}
@@ -46,7 +52,7 @@ public class VeiculoDto {
 		return ano;
 	}
 
-	public DayOfWeek getDiaDeRodizio() {
+	public DiaDaSemana getDiaDeRodizio() {
 		return diaDeRodizio;
 	}
 

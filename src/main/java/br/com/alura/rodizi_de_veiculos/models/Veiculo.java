@@ -1,7 +1,5 @@
 package br.com.alura.rodizi_de_veiculos.models;
 
-import java.time.DayOfWeek;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -26,13 +24,17 @@ public class Veiculo {
 	
 	private String modelo;
 	
+	@Column(nullable = false)
+	@Enumerated(EnumType.STRING)
+	protected TipoDeVeiculo tipo;
+	
 	private int ano;
 	
 	@Column(unique = true)
 	private String placa;
 	
 	@Enumerated(EnumType.STRING)
-	private DayOfWeek diaDeRodizio;
+	private DiaDaSemana diaDeRodizio;
 	
 	private boolean removido = Boolean.FALSE;
 	
@@ -60,6 +62,14 @@ public class Veiculo {
 		this.modelo = modelo;
 	}
 	
+	public TipoDeVeiculo getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(TipoDeVeiculo tipo) {
+		this.tipo = tipo;
+	}
+
 	public int getAno() {
 		return ano;
 	}
@@ -77,11 +87,11 @@ public class Veiculo {
 	}
 	
 
-	public DayOfWeek getDiaDeRodizio() {
+	public DiaDaSemana getDiaDeRodizio() {
 		return diaDeRodizio;
 	}
 
-	public void setDiaDeRodizio(DayOfWeek diaDeRodizio) {
+	public void setDiaDeRodizio(DiaDaSemana diaDeRodizio) {
 		this.diaDeRodizio = diaDeRodizio;
 	}
 
