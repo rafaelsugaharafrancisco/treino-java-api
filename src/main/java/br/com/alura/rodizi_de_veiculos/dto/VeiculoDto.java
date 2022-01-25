@@ -29,7 +29,7 @@ public class VeiculoDto {
 		this.placa = veiculo.getPlaca();
 		this.ano = veiculo.getAno();
 		this.diaDeRodizio = veiculo.getDiaDeRodizio();
-		this.rodizio = veiculo.getTipo().ehRodizio(veiculo.getDiaDeRodizio());
+		this.rodizio = veiculo.getTipo().getTipoDeRodizioVeiculo().ehRodizio(veiculo.getDiaDeRodizio());
 	}
 
 	public String getMarca() {

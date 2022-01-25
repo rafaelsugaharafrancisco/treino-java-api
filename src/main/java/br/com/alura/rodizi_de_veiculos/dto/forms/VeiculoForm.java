@@ -5,6 +5,7 @@ import javax.validation.constraints.Pattern;
 
 import br.com.alura.rodizi_de_veiculos.models.TipoDeVeiculo;
 import br.com.alura.rodizi_de_veiculos.models.Veiculo;
+import br.com.alura.rodizi_de_veiculos.rodizio.TipoDeRodizioVeiculo;
 
 public class VeiculoForm {
 	
@@ -63,7 +64,8 @@ public class VeiculoForm {
 		veiculo.setPlaca(placa);
 		veiculo.setMarca(marca);
 		veiculo.setTipo(TipoDeVeiculo.valueOf(tipo.toUpperCase()));
-		veiculo.setDiaDeRodizio(TipoDeVeiculo.valueOf(tipo.toUpperCase()).obterDiaDaSemana(placa));
+		TipoDeRodizioVeiculo tipoDeRodizioVeiculo = TipoDeVeiculo.valueOf(tipo.toUpperCase()).getTipoDeRodizioVeiculo();
+		veiculo.setDiaDeRodizio(tipoDeRodizioVeiculo.obterDiaDaSemana(placa));
 		
 		return veiculo;
 	}

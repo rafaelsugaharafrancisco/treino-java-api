@@ -1,6 +1,7 @@
 package br.com.alura.rodizi_de_veiculos.rodizio;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 import br.com.alura.rodizi_de_veiculos.models.DiaDaSemana;
 
@@ -14,7 +15,6 @@ public class Caminhao implements InformacaoRodizioVeiculo {
 
 	@Override
 	public boolean verificarSeDiaEHora(DiaDaSemana diaDaSemana) {
-		int hora = LocalDateTime.now().getHour();
 		
 		switch (LocalDateTime.now().getDayOfWeek()) {
 		case MONDAY:
@@ -22,12 +22,13 @@ public class Caminhao implements InformacaoRodizioVeiculo {
 		case WEDNESDAY:
 		case THURSDAY:
 		case FRIDAY:
-			if ((hora >= 5 && hora <= 9) || (hora >= 17 && hora <= 21)) {
+			if ((LocalTime.now().isAfter(LocalTime.of(4,59,59)) && LocalTime.now().isBefore(LocalTime.of(9,0,1))) || 
+					(LocalTime.now().isAfter(LocalTime.of(16,59,59)) && LocalTime.now().isBefore(LocalTime.of(21,0,1)))) {
 				return true;
 			}
 		break;
 		case SATURDAY:
-			if (hora >= 10 && hora <= 14) {
+			if (LocalTime.now().isAfter(LocalTime.of(9,59,59)) && LocalTime.now().isBefore(LocalTime.of(14,0,1))) {
 				return true;
 			}
 		break;

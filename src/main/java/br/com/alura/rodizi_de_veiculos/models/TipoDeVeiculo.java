@@ -1,27 +1,20 @@
 package br.com.alura.rodizi_de_veiculos.models;
 
-import br.com.alura.rodizi_de_veiculos.rodizio.Caminhao;
-import br.com.alura.rodizi_de_veiculos.rodizio.Carro;
-import br.com.alura.rodizi_de_veiculos.rodizio.InformacaoRodizioVeiculo;
-import br.com.alura.rodizi_de_veiculos.rodizio.Moto;
+import br.com.alura.rodizi_de_veiculos.rodizio.TipoDeRodizioVeiculo;
 
 public enum TipoDeVeiculo {
 
-	CARRO(new Carro()),
-	CAMINHAO(new Caminhao()),
-	MOTO(new Moto());
+	CARRO(TipoDeRodizioVeiculo.CARRO),
+	CAMINHAO(TipoDeRodizioVeiculo.CAMINHAO),
+	MOTO(TipoDeRodizioVeiculo.MOTO);
 
-	private final InformacaoRodizioVeiculo info;
+	private final TipoDeRodizioVeiculo tipoRodizio;
 	
-	TipoDeVeiculo(InformacaoRodizioVeiculo info) {
-		this.info = info;
+	TipoDeVeiculo(TipoDeRodizioVeiculo tipoDeRodizio) {
+		this.tipoRodizio = tipoDeRodizio;
 	}
 
-	public DiaDaSemana obterDiaDaSemana(String placa) {
-		return info.obterDia(placa);
-	}
-	
-	public boolean ehRodizio(DiaDaSemana diaDaSemana) {
-		return info.verificarSeDiaEHora(diaDaSemana);
+	public TipoDeRodizioVeiculo getTipoDeRodizioVeiculo() {
+		return tipoRodizio;
 	}
 }
